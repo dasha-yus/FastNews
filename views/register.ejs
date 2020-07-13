@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+	<link rel="stylesheet" href="/css/login.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+</head>
+<body>
+	<div class="align">
+		<div class="card">
+			<div class="head">
+				<div></div>
+				<a id="login" href="login">Login</a>
+				<a id="register" class="selected" href="#">Register</a>
+				<a href="/news">Home</a>
+				<div></div>
+			</div>
+				<form action="/register" method="POST" id="form">
+					<div class="inputs">
+						<div class="input">
+							<input placeholder="Username" type="text" name="username">
+							<i class="fas fa-user"></i>
+						</div>
+						<div class="input">
+							<input placeholder="Password" type="password" name="password">
+							<i class="fas fa-lock"></i>
+						</div>
+					</div>
+					<button onClick = "isValid(document.getElementById('form'))">Register</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/register.js"></script>
+</body>
+</html>

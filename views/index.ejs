@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FastNews</title>
+	<link rel="stylesheet" href="/css/mobile.css">
+	<link rel="stylesheet" href="/css/desktop.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<header>
+		<!-- DESKTOP -->
+		<div class="bar" id="desktop">
+			<div class="header-section">
+				<div class="header-item"><a href="#" id="active-desktop">HOME</a></div>
+				<div class="header-item"><a href="#">SPORT</a></div>
+				<div class="header-item"><a href="#">BLOG</a></div>
+				<div class="header-item"><a href="#">PAGES</a></div>
+				<div class="header-item"><a href="#">CONTACT</a></div>		
+			</div>
+			<div class="header-section">
+				<% if(!currentUser){ %>
+					<div class="header-item" id="login"><a href="login">LOGIN</a></div>
+				<% } else { %>
+					<div class="header-item" id="login"><a href="#">Signed in as <%=currentUser.username%></a></div>
+					<div class="header-item" id="login"><a href="logout">LOGOUT</a></div>
+				<% } %>		
+			</div>
+		</div>	
+		<!-- MOBILE MENU-->
+		<div id="burg">
+			<a href="#">MENU</a>
+		</div>
+		<div class="mobile-tab">
+			<nav id="mobile">
+				<ul>
+					<li><a href="#">HOME</a></li>
+					<li><a href="#">SPORT</a></li>
+					<li><a href="#">BLOG</a></li>
+					<li><a href="#">PAGES</a></li>
+					<li><a href="#">CONTACT</a></li>
+					<li><a id="login" href="login">LOGIN</a></li>
+				</ul>
+			</nav>
+		</div>
+		<!-- ------------ -->
+	</header>
+	<div class="title-section">
+		<div class="title">
+			<p id="title">Fast<strong>News</strong></p>
+			<h6 id="subtitle">Clean, cool and powerfull magazine theme</h6>
+		</div>
+		<div class="ad">
+			<a href="https://3docean.net"><img src="images/ad.jpg"></a>
+		</div>
+	</div>
+	<!-- MOBILE TITLE -->
+	<div class="title-mobile">
+		<p id="title">Fast<strong>News</strong></p>
+		<h6 id="subtitle">Clean, cool and powerfull magazine theme</h6>
+		<div class="ad-mobile">
+			<a href="https://3docean.net"><img src="images/ad.jpg"></a>
+		</div>
+	</div>
+	<hr id="hr">
+	<!-- ------------ -->
+	<main class="main">
+		<!-- LEFT HALF -->
+		<div class="left-side">
+			<!-- Champions League news -->
+			<div class="league">
+				<% posts.forEach(function(post){ %>
+					<%if(post.class == "main-right" && post.topic == "FOOTBALL NEWS"){%>
+						<a href="/news/<%=post._id%>"><img src="<%=post.image%>" id="league">
+							<div class="football-news">
+								<h5>in <%=post.theme%> | <%=post.date%></h5>
+								<h2 class="league-title"><%=post.title%></h2>
+								<h3 class="description"><%=post.shortDescription%></h3>
+							</div>
+						</a>
+					<% } %>
+				<% }) %>
+			</div>
+			<!-- TENNIS NEWS -->
+			<div class="sport">
+				<div class="left-block">
+					<h2 class="caption">TENNIS NEWS</h2>
+					<div class="tennis">
+						<div class="mainitem">
+							<% posts.forEach(function(post){ %>
+								<%if(post.class == "main-tennis"){%>
+									<a href="/news/<%=post._id%>" id="link">
+										<img src="<%=post.image%>" id="wta-img">
+										<div class="main-tennis">		
+											<h2><%=post.title%></h2>
+											<h4 class="date">&ndash; <%=post.date%></h4>
+											<h4 class="sub"><%=post.shortDescription%></h4>
+										</div>
+									</a>
+								<% } %>
+							<% }) %>
+						</div>
+						<div class="sideitem">
+							<div class="side-tennis side">
+								<% posts.forEach(function(post){ %>
+									<%if(post.date == "null" && post.topic == "TENNIS NEWS"){%>
+										<div class="<%=post.class%>">
+											<a href="/news/<%=post._id%>" id="link">
+												<% if(post.class == "main-right"){ %>
+													<img src="<%=post.image%>" id="novak-img" hspace="15">
+												<% } %>
+												<div>		
+													<h2 class="sub-right"><%=post.title%></h2>
+													<h4 class="sub-side"><%=post.shortDescription%></h4>
+												</div>
+											</a>	
+										</div>
+									<% } %>
+								<% }) %>
+							</div>
+						</div>
+					</div>	
+				</div>	
+			</div>
+			<!-- FOOTBALL NEWS -->
+			<div>
+				<div class="left-block">
+					<h2 class="caption">FOOTBALL NEWS</h2>
+					<div class="football">
+						<div class="mainitem">
+							<% posts.forEach(function(post){ %>
+								<%if(post.class == "main-football"){%>
+									<a href="/news/<%=post._id%>" id="link">
+										<img src="<%=post.image%>" id="liverpool-img">
+										<div class="main-football">		
+											<h2><%=post.title%></h2>
+											<h4 class="date">&ndash; <%=post.date%></h4>
+											<h4 class="sub"><%=post.shortDescription%></h4>
+										</div>
+									</a>
+								<% } %>
+							<% }) %>
+						</div>	
+						<div class="sideitem">
+							<div class="side-football side">
+								<% posts.forEach(function(post){ %>
+									<%if((post.date == "null" && post.topic == "FOOTBALL NEWS") || (post.class == "main-right" && post.topic == "FOOTBALL NEWS")){%>
+										<div class="<%=post.class%>">
+											<a href="/news/<%=post._id%>">
+												<% if(post.image != "null"){ %>
+													<img src="<%=post.image%>" id="league-img" hspace="15">
+												<% } %>
+												<div>		
+													<h2 class="sub-right"><%=post.title%></h2>
+													<h4 class="sub-side"><%=post.shortDescription%></h4>
+												</div>
+											</a>	
+										</div>
+									<% } %>
+								<% }) %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- RIGHT HALF -->
+		<div class="right-side">
+			<!-- MOVIE NEWS -->
+			<div class="movie-news">
+				<h2 class="caption caption-movies">MOVIE NEWS</h2>
+				<div class="movies">
+					<% posts.forEach(function(post){ %>
+						<%if(post.topic == "MOVIES"){%>
+							<div>
+								<a href="/news/<%=post._id%>" id="link">
+									<img src="<%=post.image%>" id="movies-imgs">
+									<h2><%=post.title%></h2>
+									<h4 class="date">&ndash; <%=post.date%></h4>
+									<h4 class="sub"><%=post.shortDescription%></h4>
+								</a>
+							</div>
+						<%}%>
+					<% }) %>
+				</div>
+			</div>
+			<div class="right-down-corner">
+				<div class="right-down-corner-left-side">
+					<div class="left-side-half">
+						<!-- AUTO NEWS -->
+						<div>
+							<h2 class="caption">AUTO</h2>
+							<div class="auto">
+								<div class="autos">
+									<% posts.forEach(function(post){ %>
+										<%if(post.class == "auto-main"){%>
+											<a href="/news/<%=post._id%>" id="link">
+												<img src="<%=post.image%>" id="mercedes">
+												<h2><%=post.title%></h2>
+												<h4 class="date">&ndash; <%=post.date%></h4>
+												<h4 class="sub sub-mercedes"><%=post.shortDescription%></h4> 
+											</a>
+										<% } %>
+									<% }) %>
+								</div>
+								<% posts.forEach(function(post){ %>
+									<%if(post.theme == "auto"){%>
+										<div class="<%=post.class%>">
+											<a href="/news/<%=post._id%>" id="link">
+												<img src="<%=post.image%>" class="auto-small-pic" hspace="15">
+												<div class="side-auto">
+													<h2><%=post.title%></h2>
+													<h4 class="sub sub-mercedes"><%=post.shortDescription%></h4> 
+												</div>
+											</a>
+										</div>
+									<% } %>
+								<% }) %>
+							</div>
+						</div>
+						<!-- MUSIC NEWS -->
+						<div class="music-mobile">
+							<h2 class="caption">MUSIC</h2>
+							<div class="music">
+								<% posts.forEach(function(post){ %>
+									<%if(post.theme == "music"){%>
+										<div class="<%=post.class%>">
+											<a href="/news/<%=post._id%>" id="link">
+												<%if(post.class == "image-post"){%>
+													<img src="<%=post.image%>" class="music-pic" hspace="15">
+												<% } %>
+												<h2><%=post.title%></h2>
+												<h4 class="date">&ndash; <%=post.date%></h4>
+												<h4 class="sub sub-mercedes"><%=post.shortDescription%></h4> 
+											</a>	
+										</div>
+									<% } %>
+								<% }) %>
+							</div>
+						</div>
+					</div>	
+				</div>
+				<!-- VIDEO -->
+				<div class="right-down-corner-right-side">
+					<h2 class="caption">VIDEO</h2>
+					<% posts.forEach(function(post){ %>
+						<%if(post.topic == "video"){%>
+							<div class="<%=post.topic%> <%=post.class%>">
+								<a href="/news/<%=post._id%>" id="link">
+									<h2><%=post.title%></h2>
+									<h4 class="date">&ndash; <%=post.date%></h4>
+									<video controls poster="<%=post.image%>">
+										<source src="<%=post.video%>" type="video/mp4">
+										Your browser does not support the video tag.
+									</video>
+								</a>		
+							</div>
+						<% } %>
+					<% }) %>
+				</div>
+			</div>
+		</div>
+	</main>
+	<div class="select">
+		<select onchange="window.location.href=this.options[this.selectedIndex].value">
+ 			<option VALUE="#">Home</option>
+  			<option VALUE="#">Sport></option>
+  			<option VALUE="#">Blog</option>
+  			<option VALUE="#">Page></option>
+  			<option VALUE="#">Contact</option>
+  			<option VALUE="login">Login</option>
+		</select>
+	</div>
+	<hr>
+	<footer>
+		<p>Copyright &copy; 2013. All Rights Reserved. Designed by kopatheme.net.<br>
+		The trade marks and images used in the design are the copyright of their respective owners.
+		They are used only for display purpose.</p>
+	</footer>
+	<script type="text/javascript" src="/js/main.js"></script>
+</body>
+</html>

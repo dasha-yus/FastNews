@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><%=post.topic%></title>
+	<link rel="stylesheet" href="/css/show.css">
+	<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+</head>
+<body style="background-image: url(<%=post.imageHD%>);">
+	<header>
+		<div>
+			<a href="/news" id="home"><i class="fas fa-home"></i></a>
+			<%=post.topic%>
+		</div>
+		<div>
+			Number of views is <%=post.numberOfViews%>
+		</div>
+	</header>
+	<% if(post.topic == "video"){ %>
+		<h1 class="h1-video"><%=post.title%></h1>
+	<% } else { %>
+		<h1><%=post.title%></h1>
+	<% } %>	
+	<img src="<%=post.imageHD%>">
+	<% if(post.topic == "video"){ %>
+		<video controls poster="<%=post.image%>">
+			<source src="<%=post.video%>" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+	<% } %>	
+	<% if(post.topic != "video"){ %>
+		<p class="fullDescription"><%=post.fullDescription%></p>
+	<% } %>
+	<p><a href="/news/<%=post._id%>/comments/new" class="button">Add New Comment</a></p>	
+	<% post.comments.forEach(function(comment){ %>
+		<div class="container">
+			<strong><%= comment.author.username %></strong><br><%= comment.text %>
+		</div>
+	<% }) %>	
+	<hr>
+	<footer>
+		<p>Copyright &copy; 2013. All Rights Reserved. Designed by kopatheme.net.<br>
+		The trade marks and images used in the design are the copyright of their respective owners.
+		They are used only for display purpose.</p>
+	</footer>
+</body>
+</html>
