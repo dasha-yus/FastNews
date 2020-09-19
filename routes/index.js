@@ -18,16 +18,18 @@ router.get('/register', function(req, res){
 	res.render("register");
 })
 
-router.post("/register", function(req, res){
-	User.register(new User({username: req.body.username}), req.body.password, function(err, user){
-		if(err){
-			console.log(err);
-			return res.render("login");
-		}
-		passport.authenticate("local")(req, res, function(){
-			res.redirect("/news");
+router.post("/register", function(req, res) {
+	return new Promise((resolve, reject) => {
+		User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+			if(err){
+				reject(err);
+				return res.render("login");
+			}
+			passport.authenticate("local")(req, res, function(){
+				res.redirect("/news");
+			});
 		});
-	});
+	})
 });
 
 router.get('/logout', function(req, res){

@@ -358,31 +358,26 @@ var data = [
 	}
 ]
 
-function seedDB(){
-	Post.remove({}, function(err){
-		if(err){
-			console.log(err);
-		}
-		console.log("removed posts!");
-		data.forEach(function(seed){
-			Post.create(seed, function(err, data){
-				if(err){
-					console.log(err)
-				} else {	
-					console.log("added a post");
-					// Comment.create(
-					// {
-					// 	text: "Great news!",
-					// 	author: "Dasha"
-					// }, function(err, comment){
-					// 	data.comments.push(comment);
-					// 	data.save();
-					// 	console.log("Created a new comment");
-					// });
-				}
+function seedDB() {
+	return new Promise((resolve, reject) => {
+		Post.remove({}, function(err){
+			if(err) {
+				reject(err);
+			}
+			console.log("removed posts!");
+			data.forEach(function(seed) {
+				return new Promise((resolve, reject) => {
+					Post.create(seed, function(err, data){
+						if(err){
+							reject(err)
+						} else {	
+							console.log("added a post");
+						}
+					});
+				})
 			});
 		});
-	});
+	})	
 }
 
 module.exports = seedDB;
